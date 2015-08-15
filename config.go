@@ -151,14 +151,10 @@ func (c *Config) ClientMode(ca *openssl.CA, cert *openssl.Cert, dh *openssl.DH, 
 func (c *Config) SetClientFiles(ca string, cert string, key string, dh string) {
 	c.flag("client")
 
-	c.Remote(host, port)
-	c.set("dev", dev)
 	c.set("ca", ca)
 	c.set("cert", cert)
 	c.set("key", key)
 	c.set("dh", dh)
-
-	//c.set("ns-cert-type", "server")
 }
 
 func (c *Config) Remote(r string, port int) {
