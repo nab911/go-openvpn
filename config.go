@@ -112,13 +112,13 @@ X		"--ifconfig-pool-linear",
 */
 
 func (c *Config) Validate() (config []string, err error) {
-	//for key, val := range c.values {
-	//config = append(config, "--"+key+" "+val)
-	//}
+	for key, val := range c.values {
+		config = append(config, "--"+key+" "+val)
+	}
 
-	//for key, _ := range c.flags {
-	//config = append(config, "--"+key)
-	//}
+	for key, _ := range c.flags {
+		config = append(config, "--"+key)
+	}
 
 	return c.params, nil
 }
@@ -144,6 +144,19 @@ func (c *Config) ClientMode(ca *openssl.CA, cert *openssl.Cert, dh *openssl.DH, 
 	c.set("key", cert.GetKeyPath())
 	c.set("dh", dh.GetFilePath())
 	c.set("tls-auth", ta.GetFilePath())
+
+	//c.set("ns-cert-type", "server")
+}
+
+func (c *Config) SetClientFiles(ca string, cert string, key string, dh string) {
+	c.flag("client")
+
+	c.Remote(host, port)
+	c.set("dev", dev)
+	c.set("ca", ca)
+	c.set("cert", cert)
+	c.set("key", key)
+	c.set("dh", dh)
 
 	//c.set("ns-cert-type", "server")
 }
